@@ -1,0 +1,52 @@
+// 参考 https://www.xicons.org/#/
+import {
+  PersonOutline,
+  LockClosedOutline,
+  KeyOutline,
+  LogInOutline,
+  ShieldCheckmarkOutline,
+  SunnyOutline,
+  MoonOutline,
+  ChevronDownOutline,
+  EllipsisVerticalOutline,
+  GlobeOutline,
+  SparklesOutline,
+  AlbumsOutline,
+  ApertureOutline,
+  TrashOutline,
+  AddCircleOutline,
+  ArrowUndoOutline,
+  IdCardOutline,
+  LogOutOutline,
+  AirplaneOutline,
+} from '@vicons/ionicons5'
+import { Edit } from '@vicons/carbon'
+import { ArrowCircleUp16Regular, Accessibility16Regular, Icons24Regular } from '@vicons/fluent'
+import { KeyboardDoubleArrowUpSharp } from '@vicons/material'
+
+export default {
+  AirplaneOutline,
+  PersonOutline,
+  LockClosedOutline,
+  KeyOutline,
+  LogInOutline,
+  ShieldCheckmarkOutline,
+  SunnyOutline,
+  MoonOutline,
+  ChevronDownOutline,
+  EllipsisVerticalOutline,
+  GlobeOutline,
+  SparklesOutline,
+  AlbumsOutline,
+  ApertureOutline,
+  TrashOutline,
+  Edit,
+  AddCircleOutline,
+  ArrowUndoOutline,
+  ArrowCircleUp16Regular,
+  KeyboardDoubleArrowUpSharp,
+  IdCardOutline,
+  LogOutOutline,
+  Accessibility16Regular,
+  Icons24Regular,
+}

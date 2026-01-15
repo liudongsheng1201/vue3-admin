@@ -1,0 +1,98 @@
+@use 'sass:color';
+// 定义全局的样式变量，例如颜色、字体大小等等
+// 主题色
+$colors: (
+  primary: #18a058,
+  success: #18a058,
+  warning: #f0a020,
+  info: #2080f0,
+  error: #d03050,
+);
+
+:root {
+  // 生成主题色和不同亮度的颜色
+  @each $val, $color in $colors {
+    // 生成主题颜色
+    --lds-color-#{$val}: #{$color};
+    // 生成不同亮度的颜色
+    @for $i from 1 through 4 {
+      --lds-color-#{$val}-light-#{2 * $i + 1}: #{color.mix(#fff, $color, ((2 * $i + 1) * 10 * 1%))};
+    }
+  }
+  /* 激活颜色 */
+  --lds-color-active: var(--lds-color-primary);
+
+  /* 文本颜色 */
+  --lds-color-text-base: #000;
+  --lds-color-text1: rgb(31, 34, 37);
+  --lds-color-text2: rgb(51, 54, 57);
+  --lds-color-text3: rgb(118, 124, 130);
+  --lds-color-text-disabled: rgba(194, 194, 194, 1);
+  --lds-color-placeholder: rgba(194, 194, 194, 1);
+  --lds-color-placeholder-disabled: rgba(209, 209, 209, 1);
+
+  /* 边框与分割线 */
+  --lds-color-divider: rgb(239, 239, 245);
+  --lds-color-border: rgb(224, 224, 230);
+
+  /* 禁用状态 */
+  --lds-opacity-disabled: 0.5;
+  --lds-input-color-disabled: rgb(250, 250, 252);
+
+  /* 阴影 */
+  --lds-box-shadow1:
+    0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06),
+    0 5px 12px 4px rgba(0, 0, 0, 0.04);
+  --lds-box-shadow2:
+    0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  --lds-box-shadow3:
+    0 6px 16px -9px rgba(0, 0, 0, 0.08), 0 9px 28px 0 rgba(0, 0, 0, 0.05),
+    0 12px 48px 16px rgba(0, 0, 0, 0.03);
+
+  /* 字体家族 */
+  --lds-font-family:
+    v-sans, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --lds-font-family-mono: v-mono, SFMono-Regular, Menlo, Consolas, Courier, monospace;
+
+  /* 字重 */
+  --lds-font-weight: 400;
+  --lds-font-weight-strong: 500;
+
+  /* 字体大小 */
+  --lds-font-size: 14px;
+  --lds-font-size-mini: 12px;
+  --lds-font-size-tiny: 12px;
+  --lds-font-size-small: 14px;
+  --lds-font-size-medium: 14px;
+  --lds-font-size-large: 15px;
+  --lds-font-size-huge: 16px;
+
+  /* 行高 */
+  --lds-line-height: 1.6;
+
+  /* 圆角 */
+  --lds-border-radius: 3px;
+  --lds-border-radius-small: 2px;
+
+  /* 透明度 */
+  --lds-opacity1: 0.82;
+  --lds-opacity2: 0.72;
+  --lds-opacity3: 0.38;
+  --lds-opacity4: 0.24;
+  --lds-opacity5: 0.18;
+
+  // 和 transition 过渡相关的变量
+  --lds-transition-duration: 0.3s;
+  --lds-transition-duration-fast: 0.2s;
+
+  /* 缓动函数 */
+  --lds-cubic-bezier-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --lds-cubic-bezier-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --lds-cubic-bezier-ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* 间距 */
+  --lds-block-interval: 12px;
+  --lds-block-interval-small: 8px;
+}

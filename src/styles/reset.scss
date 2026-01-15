@@ -1,0 +1,126 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--lds-font-family);
+  font-weight: var(--lds-font-weight);
+  font-size: var(--lds-font-size);
+  color: var(--lds-text-color1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: var(--lds-text-color1);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--lds-color-primary-light-3);
+  }
+
+  &:active {
+    color: var(--lds-color-primary-dark-2);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--lds-text-color1);
+  font-weight: inherit;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1 {
+  font-size: calc(var(--lds-font-size) + 6px);
+}
+
+h2 {
+  font-size: calc(var(--lds-font-size) + 4px);
+}
+
+h3 {
+  font-size: calc(var(--lds-font-size) + 2px);
+}
+
+h4,
+h5,
+h6,
+p {
+  font-size: inherit;
+}
+
+p {
+  line-height: 1.8;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+sup,
+sub {
+  font-size: calc(var(--lds-font-size) - 1px);
+}
+
+small {
+  font-size: calc(var(--lds-font-size) - 2px);
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid var(--lds-border-color);
+}
+
+ul,
+ol,
+dl {
+  list-style: none;
+}
+
+/* 以下代码火狐或者IE可能不会生效 */
+/* 设置滚动条的宽度 */
+::-webkit-scrollbar {
+  width: 4px; /* 垂直滚动条 */
+  height: 4px; /* 水平滚动条 */
+}
+
+/* 设置滚动条的轨道（背景） */
+::-webkit-scrollbar-track {
+  // background-color: #f1f1f1; /* 轨道的颜色 */
+  // border-radius: 10px; /* 轨道的圆角 */
+  // box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* 内阴影 */
+  background-color: transparent;
+}
+
+/* 设置滚动条的滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px; /* 滑块的圆角 */
+  // border: 3px solid #f1f1f1; /* 滑块的边框（轨道和滑块之间的间隔） */
+  background: linear-gradient(180deg, rgba(106, 127, 219, 0.5), rgba(106, 127, 219, 0.5));
+}
+
+/* 设置滚动条的滑块在 hover 状态下的样式 */
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}
