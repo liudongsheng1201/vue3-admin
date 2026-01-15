@@ -1,33 +1,83 @@
-name: Deploy to GitHub Pages
+name: Deploy Vue.js to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      # 步骤 1：检出代码
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取所有历史
 
+      # 步骤 2：设置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      # 步骤 3：检查文件结构
+      - name: List files
+        run: |
+          echo "=== 当前目录结构 ==="
+          ls -la
+          echo "=== package.json 内容 ==="
+          cat package.json || echo "没有 package.json 文件"
 
-      - name: Build
+      # 步骤 4：安装依赖
+      - name: Install dependencies
+        run: |
+          # 先检查是否有 package.json
+          if [ ! -f "package.json" ]; then
+            echo "❌ 错误：package.json 不存在"
+            exit 1
+          fi
+
+          # 安装依赖
+          echo "开始安装依赖..."
+          npm install --no-audit --no-fund
+
+      # 步骤 5：构建项目
+      - name: Build project
         run: npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # 步骤 6：验证构建结果
+      - name: Verify build output
+        run: |
+          echo "=== 构建结果 ==="
+          if [ -d "dist" ]; then
+            ls -la dist/
+            echo "✅ dist 目录存在"
+          else
+            echo "❌ dist 目录不存在"
+            exit 1
+          fi
+
+      # 步骤 7：上传构建结果
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          path: ./dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
