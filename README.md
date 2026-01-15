@@ -75,6 +75,6 @@ npm run lint
 - 登录页
   ![alt text](./src/assets/images/20260115-161919.jpg)
 - 暗色模式，菜单收缩模式
-  ![alt text]()
+  ![alt text](./src/assets/images/20260115-220627.jpg)
 - markdown编辑器
   ![alt text](./src/assets/images/20260115-164923.jpg)
