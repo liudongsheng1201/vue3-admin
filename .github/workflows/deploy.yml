@@ -4,16 +4,29 @@ on:
   push:
     branches: ['main']
 
+# ⚠️ 必须添加权限配置
+permissions:
+  contents: write # 需要写入权限来创建 commit
+  pages: write # 必须：写入 GitHub Pages
+  id-token: write # 必须：身份验证令牌
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # ⚠️ 建议：为 build 任务也设置权限
+    permissions:
+      contents: read # build 只需要读权限
+      pages: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.12.0'
+          node-version: '18'
           cache: 'npm'
 
       - name: Install dependencies
@@ -26,8 +39,11 @@ jobs:
 
       - name: Verify build
         run: |
-          echo "=== 检查资源路径 ==="
-          grep -o 'src="[^"]*"' dist/index.html | head -5
+          echo "=== 检查构建结果 ==="
+          ls -la dist/
+          echo ""
+          echo "=== 资源路径检查 ==="
+          grep -o 'src="/[^"]*"' dist/index.html | head -5 || echo "没有找到资源路径"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -38,8 +54,15 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     needs: build
+
+    # ⚠️ deploy 任务的权限
+    permissions:
+      pages: write # 必须
+      id-token: write # 必须
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
