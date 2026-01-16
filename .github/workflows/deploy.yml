@@ -3,70 +3,33 @@ name: Deploy Vue.js to GitHub Pages
 on:
   push:
     branches: ['main']
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 步骤 1：检出代码
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # 获取所有历史
+      - uses: actions/checkout@v4
 
-      # 步骤 2：设置 Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.12.0'
           cache: 'npm'
 
-      # 步骤 3：检查文件结构
-      - name: List files
-        run: |
-          echo "=== 当前目录结构 ==="
-          ls -la
-          echo "=== package.json 内容 ==="
-          cat package.json || echo "没有 package.json 文件"
-
-      # 步骤 4：安装依赖
       - name: Install dependencies
-        run: |
-          # 先检查是否有 package.json
-          if [ ! -f "package.json" ]; then
-            echo "❌ 错误：package.json 不存在"
-            exit 1
-          fi
+        run: npm install
 
-          # 安装依赖
-          echo "开始安装依赖..."
-          npm install --no-audit --no-fund
-
-      # 步骤 5：构建项目
-      - name: Build project
+      - name: Build with base URL
         run: npm run build
+        env:
+          VITE_BASE_URL: /vue3-admin/
 
-      # 步骤 6：验证构建结果
-      - name: Verify build output
+      - name: Verify build
         run: |
-          echo "=== 构建结果 ==="
-          if [ -d "dist" ]; then
-            ls -la dist/
-            echo "✅ dist 目录存在"
-          else
-            echo "❌ dist 目录不存在"
-            exit 1
-          fi
+          echo "=== 检查资源路径 ==="
+          grep -o 'src="[^"]*"' dist/index.html | head -5
 
-      # 步骤 7：上传构建结果
-      - name: Upload pages artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
